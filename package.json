@@ -1,0 +1,15 @@
+{
+  "name": "com.danpie.simple-bootstrap",
+  "version": "1.0.0",
+  "displayName": "SimpleBootstrap",
+  "description": "Contains the minimum necessary functionality for convenient creation of a single entry point.",
+  "unity": "2017.1",
+  "documentationUrl": "https://github.com/DanyloSih/SimpleBootstrap.git",
+  "changelogUrl": "",
+  "licensesUrl": "",
+  "author": {
+    "name": "Other",
+    "email": "geratosfen@gmail.com",
+    "url": "https://www.linkedin.com/in/danylo-s-33118a21b/"
+  }
+}
