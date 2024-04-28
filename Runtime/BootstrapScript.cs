@@ -26,10 +26,15 @@ namespace SimpleBootstrap
             }
             catch (Exception e)
             {
-                Debug.LogError(e.ToString());
-                RunException = e;
+                ApplyException(e);
                 scriptCompletedCallback?.Invoke(this);
             }
+        }
+
+        protected void ApplyException(Exception e)
+        {
+            Debug.LogError(e.ToString());
+            RunException = e;
         }
 
         protected abstract void RunScript(BootstrapContext bootstrapContext, Action<BootstrapScript> scriptCompletedCallback);
