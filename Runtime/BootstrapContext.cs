@@ -1,8 +1,10 @@
 ﻿using System;
-using System.Threading;
 
 namespace SimpleBootstrap
 {
+    /// <summary>
+    /// A class that is used to transmit information about the current state of the boot process.
+    /// </summary>
     public struct BootstrapContext
 	{
 		public int RunOrder {  get; private set; }

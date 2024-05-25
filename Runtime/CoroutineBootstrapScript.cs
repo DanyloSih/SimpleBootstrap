@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace SimpleBootstrap
 {
+    /// <summary>
+    /// You can inherit from this class if you need a bootstrap script that will be executed inside coroutine.
+    /// </summary>
     public abstract class CoroutineBootstrapScript : BootstrapScript
     {
         private Coroutine _coroutine;
@@ -12,7 +15,7 @@ namespace SimpleBootstrap
         {           
             if (_coroutine != null)
             {
-                StopCoroutine(_coroutine);
+                throw new InvalidOperationException($"The \"{GetType().Name}\" coroutine bootstrap script is already running!");
             }
             _coroutine = StartCoroutine(
                 RunProcess(bootstrapContext, scriptCompletedCallback));

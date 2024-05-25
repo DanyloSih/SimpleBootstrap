@@ -1,10 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace SimpleBootstrap
 {
-    public class ConsistentBootstrapper : Bootstrapper<BootstrapScript>
+    /// <summary>
+    /// This class executes bootstrap scripts found via <see cref="ConsistentBootstrapper._bootstrapScriptsProvider"/>.
+    /// </summary>
+    public class ConsistentBootstrapper : BootstrapperBase
     {
+        [SerializeField] private BootstrapScriptsProvider<BootstrapScript> _bootstrapScriptsProvider;
+
         private int _previousScriptId = -1;
+
+        public override int BootstrapScriptsCount { get => _bootstrapScriptsProvider.GetBootstrapScripts().Count; }
 
         protected override void OnRunScripts(Action allScriptsCompletedCallback = null)
         {
@@ -16,15 +25,18 @@ namespace SimpleBootstrap
             int currentScriptId = _previousScriptId + 1;
             int textScriptId = currentScriptId + 1;
 
-            if (currentScriptId >= BootstrapScripts.Count)
+            IReadOnlyList<BootstrapScript> bootstrapScripts
+                = _bootstrapScriptsProvider.GetBootstrapScripts();
+
+            if (currentScriptId >= bootstrapScripts.Count)
             {
                 allScriptsCompletedCallback?.Invoke();
                 return;
             }
 
-            BootstrapScript previousScript = _previousScriptId == -1 ? null : BootstrapScripts[_previousScriptId];
-            BootstrapScript currentScript = BootstrapScripts[currentScriptId];
-            BootstrapScript nextScript = textScriptId >= BootstrapScripts.Count ? null : BootstrapScripts[textScriptId];
+            BootstrapScript previousScript = _previousScriptId == -1 ? null : bootstrapScripts[_previousScriptId];
+            BootstrapScript currentScript = bootstrapScripts[currentScriptId];
+            BootstrapScript nextScript = textScriptId >= bootstrapScripts.Count ? null : bootstrapScripts[textScriptId];
 
             var context = new BootstrapContext(
                 currentScriptId, previousScript, currentScript, nextScript, this);

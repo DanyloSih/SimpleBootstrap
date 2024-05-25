@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace SimpleBootstrap
 {
+    /// <summary>
+    /// Base class for all bootstrap scripts.
+    /// </summary>
     public abstract class BootstrapScript : MonoBehaviour
 	{
 		[SerializeField] private bool _throwExceptionIfPreviousScriptReturnException = false;
@@ -33,7 +36,7 @@ namespace SimpleBootstrap
 
         protected void ApplyException(Exception e)
         {
-            Debug.LogError(e.ToString());
+            Debug.LogException(e);
             RunException = e;
         }
 

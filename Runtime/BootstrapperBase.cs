@@ -4,10 +4,17 @@ using UnityEngine;
 
 namespace SimpleBootstrap
 {
+    /// <summary>
+    /// This is the base class for all bootstrappers. <br/>
+    /// A "Bootstrapper" is an entity that executes bootstrap scripts one by one.
+    /// </summary>
     public abstract class BootstrapperBase : MonoBehaviour
 	{
         [SerializeField] private bool _runOnAwake;
-        [Tooltip("If you don't want run next bootstrapper, just leave this field empty.")]
+
+        [HideInInspector]
+        [SerializeField] private bool _isNextBootstrapperSet;
+        [HideInInspector]
         [SerializeField] private BootstrapperBase _nextBootstrapper;
 
         private bool _isScriptsRunProcessStarted;
