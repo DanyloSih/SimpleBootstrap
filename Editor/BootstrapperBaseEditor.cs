@@ -1,47 +1,51 @@
-﻿using SimpleBootstrap;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(BootstrapperBase), true)]
-public class BootstrapperBaseEditor : Editor
+using Ed = UnityEditor.Editor;
+
+namespace SimpleBootstrap.Editor
 {
-    private SerializedProperty isNextBootstrapperSetProperty;
-    private SerializedProperty nextBootstrapperProperty;
-
-    private void OnEnable()
+    [CustomEditor(typeof(BootstrapperBase), true)]
+    public class BootstrapperBaseEditor : Ed
     {
-        isNextBootstrapperSetProperty = serializedObject.FindProperty("_isNextBootstrapperSet");
-        nextBootstrapperProperty = serializedObject.FindProperty("_nextBootstrapper");
-    }
+        private SerializedProperty isNextBootstrapperSetProperty;
+        private SerializedProperty nextBootstrapperProperty;
 
-    public override void OnInspectorGUI()
-    {
-        serializedObject.Update();
-
-        DrawDefaultInspector();
-
-        if (!isNextBootstrapperSetProperty.boolValue)
+        private void OnEnable()
         {
-            if (GUILayout.Button("Set next bootstrapper"))
-            {
-                isNextBootstrapperSetProperty.boolValue = true;
-            }
-        }
-        else
-        {
-            EditorGUILayout.BeginHorizontal();
-
-            EditorGUILayout.PropertyField(nextBootstrapperProperty, GUIContent.none);
-
-            if (GUILayout.Button("X", GUILayout.Width(20)))
-            {
-                nextBootstrapperProperty.objectReferenceValue = null;
-                isNextBootstrapperSetProperty.boolValue = false;
-            }
-
-            EditorGUILayout.EndHorizontal();
+            isNextBootstrapperSetProperty = serializedObject.FindProperty("_isNextBootstrapperSet");
+            nextBootstrapperProperty = serializedObject.FindProperty("_nextBootstrapper");
         }
 
-        serializedObject.ApplyModifiedProperties();
+        public override void OnInspectorGUI()
+        {
+            serializedObject.Update();
+
+            DrawDefaultInspector();
+
+            if (!isNextBootstrapperSetProperty.boolValue)
+            {
+                if (GUILayout.Button("Set next bootstrapper"))
+                {
+                    isNextBootstrapperSetProperty.boolValue = true;
+                }
+            }
+            else
+            {
+                EditorGUILayout.BeginHorizontal();
+
+                EditorGUILayout.PropertyField(nextBootstrapperProperty, GUIContent.none);
+
+                if (GUILayout.Button("X", GUILayout.Width(20)))
+                {
+                    nextBootstrapperProperty.objectReferenceValue = null;
+                    isNextBootstrapperSetProperty.boolValue = false;
+                }
+
+                EditorGUILayout.EndHorizontal();
+            }
+
+            serializedObject.ApplyModifiedProperties();
+        }
     }
 }

@@ -8,6 +8,7 @@ namespace SimpleBootstrap
     /// </summary>
     public abstract class BootstrapScript : MonoBehaviour
 	{
+        [HideInInspector]
 		[SerializeField] private bool _throwExceptionIfPreviousScriptReturnException = false;
 
         public Exception RunException { get; private set; }
